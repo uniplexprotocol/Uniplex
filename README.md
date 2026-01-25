@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/uniplex-logo-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="assets/uniplex-logo-light.svg">
-    <img alt="Uniplex" src="assets/uniplex-logo-dark.svg" width="800">
+    <img alt="Uniplex" src="assets/uniplex-logo-dark.svg" width="950">
   </picture>
 </p>
 
@@ -17,20 +17,18 @@
   <a href="https://github.com/uniplexprotocol/uniplex/discussions">Discuss</a>
 </p>
 
----
+<br>
 
-## What is Uniplex?
-
-**Uniplex is a passport system for AI agents.**
+## Uniplex is a Passport System for AI Agents.
 
 AI agents are calling APIs and taking actions with no standard way to verify they're authorized. Uniplex is an open protocol that adds a lightweight trust layer for the agentic web:
 
 - **Passports:** Agents carry signed credentials that prove what they are, who issued them, and what they're allowed to do.
 - **Gates:** Any tool—MCP servers, LangChain tools, or APIs—can verify passports locally and make an allow/deny decision.
 - **Pluggable (no rip-and-replace):** Works alongside your existing auth (API keys, OAuth/JWT, mTLS) and can be adopted incrementally—start at one tool boundary; run standalone in a single system or federate across many systems as needed.
-- **Local-first:** Runs locally in the request flow—no network calls in the hot path and no shared secrets.
-- **Security tiers (L1/L2/L3):** L1 is dev/test (optionally allow self-issued). L2 is production (trusted issuers + theft/replay protections + revocation policy). L3 is strictest (no implicit trust + hardened controls).
-- **Vendor-neutral:** Not tied to any model provider; works with any agent framework, model, or tool stack—no single vendor is privileged by the protocol.
+- **Local-First:** Runs locally in the request flow—no network calls in the hot path and no shared secrets.
+- **Security Tiers (L1/L2/L3):** L1 is dev/test (optionally allow self-issued). L2 is production (trusted issuers + theft/replay protections + revocation policy). L3 is strictest (no implicit trust + hardened controls).
+- **Vendor-Neutral:** Not tied to any model provider; works with any agent framework, model, or tool stack—no single vendor is privileged by the protocol.
 
 ### How It Works
 
@@ -52,11 +50,11 @@ sequenceDiagram
 
 | Feature | API Keys | OAuth 2.0 | Uniplex |
 |---------|----------|-----------|---------|
-| **Designed for** | Systems/Services | Humans | AI Agents |
+| **Designed&nbsp;For** | Systems/Services | Humans | AI Agents |
 | **Scoping** | All-or-nothing | Centralized scopes | Action + Resource + Constraints |
 | **Verification** | Server-side lookup | JWT validation or introspection | Local cryptographic check |
 | **Latency** | Network round-trip | Often local (JWT); sometimes network (introspection) | Designed for sub-millisecond local checks |
-| **Offline support** | No | Possible (JWT); not inherent | First-class |
+| **Offline&nbsp;Support** | No | Possible (JWT); not inherent | First-class |
 | **Auditability** | Opaque logs | Token-based | Signed attestations |
 
 > **Note:** OAuth can be validated locally when using JWT access tokens; Uniplex is purpose-built for agent credentials and tool-bound scoping with local-first verification.
@@ -136,7 +134,9 @@ def charge_card(card_id: str, amount: int, passport_b64: str):
 
 ## Integrations
 
-- ✅ MCP (Model Context Protocol) servers
+Uniplex is framework-agnostic. It works with any tool or API that can accept a Passport (string/header). Integration examples are planned for:
+
+- ✅ MCP servers
 - 🔜 LangChain
 - 🔜 CrewAI
 - 🔜 AutoGPT
@@ -145,9 +145,9 @@ def charge_card(card_id: str, amount: int, passport_b64: str):
 
 | Profile | When to Use | Requirements |
 |---------|-------------|--------------|
-| **L1 Baseline** | Dev/test, low-risk reads | Self-issued allowed only if explicitly enabled by Gate policy |
-| **L2 Standard** | Production authorization | Trusted issuer (enterprise/internal or verified/certified) + theft/replay protections + explicit revocation policy |
-| **L3 Strict** | High assurance / multi-tenant | All L2 requirements + strict trust resolution (no implicit trust) + hardened theft protection |
+| **L1&nbsp;Baseline** | Dev/test, low-risk reads | Self-issued allowed only if explicitly enabled by Gate policy |
+| **L2&nbsp;Standard** | Production authorization | Trusted issuer (enterprise/internal or verified/certified) + theft/replay protections + explicit revocation policy |
+| **L3&nbsp;Strict** | High assurance / multi-tenant | All L2 requirements + strict trust resolution (no implicit trust) + hardened theft protection |
 
 ## Documentation
 
