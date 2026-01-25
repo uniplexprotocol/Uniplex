@@ -3,9 +3,9 @@
   "name": "Uniplex",
   "theme": "mint",
   "colors": {
-      "primary": "#00D9FF",
-      "light": "#00D9FF",
-      "dark": "#00D9FF"
+      "primary": "#28E5E9",
+      "light": "#28E5E9",
+      "dark": "#28E5E9"
   },
   "logo": {
     "dark": "/logo/uniplex-wordmark-dark.svg",
@@ -18,6 +18,16 @@
       "url": "https://github.com/uniplexprotocol/uniplex"
     }
   ],
+  "tabs": [
+    {
+      "name": "Documentation",
+      "url": "/"
+    },
+    {
+      "name": "Specification",
+      "url": "/specification"
+    }
+  ],
   "navigation": {
     "groups": [
       {
@@ -27,10 +37,6 @@
       {
         "group": "Core Concepts",
         "pages": ["concepts/passports", "concepts/gates", "concepts/trust-profiles"]
-      },
-      {
-        "group": "Specification",
-        "pages": ["specification/overview"]
       }
     ]
   },
