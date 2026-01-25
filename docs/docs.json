@@ -3,9 +3,9 @@
   "name": "Uniplex",
   "theme": "mint",
   "colors": {
-      "primary": "#28E5E9",
-      "light": "#28E5E9",
-      "dark": "#28E5E9"
+      "primary": "#00D9FF",
+      "light": "#00D9FF",
+      "dark": "#00D9FF"
   },
   "logo": {
     "dark": "/logo/uniplex-wordmark-dark.svg",
