@@ -24,7 +24,7 @@
 AI agents are calling APIs and taking actions with no standard way to verify they're authorized. Uniplex is an open protocol that adds a lightweight trust layer for the agentic web:
 
 - **Passports:** Agents carry signed credentials that prove what they are, who issued them, and what they're allowed to do.
-- **Gates:** Any tool—MCP servers, LangChain tools, or APIs—can verify passports locally and make an allow/deny decision.
+- **Gates:** Any tool—MCP servers, APIs, or agent tool calls—can verify passports locally and make an allow/deny decision.
 - **Pluggable (no rip-and-replace):** Works alongside your existing auth (API keys, OAuth/JWT, mTLS) and can be adopted incrementally—start at one tool boundary; run standalone in a single system or federate across many systems as needed.
 - **Local-First:** Runs locally in the request flow—no network calls in the hot path and no shared secrets.
 - **Security Tiers (L1/L2/L3):** L1 is dev/test (optionally allow self-issued). L2 is production (trusted issuers + theft/replay protections + revocation policy). L3 is strictest (no implicit trust + hardened controls).
@@ -129,7 +129,7 @@ def charge_card(card_id: str, amount: int, passport_b64: str):
     if not decision.allowed:
         raise PermissionError(f"Denied: {decision.reason}")
 
-    return {"status": "ok"}
+    return {"status": "ok", "charged": amount}
 ```
 
 ## Integrations
@@ -157,7 +157,7 @@ Uniplex is framework-agnostic. It works with any tool or API that can accept a P
 
 ## Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We'd love your help — whether it's fixing bugs, improving docs, or shaping the protocol itself. See our [contributing guide](CONTRIBUTING.md) to get started.
 
 - 💬 [Discussions](https://github.com/uniplexprotocol/uniplex/discussions) — Questions and ideas
 - 🐛 [Issues](https://github.com/uniplexprotocol/uniplex/issues) — Bug reports and feature requests
@@ -170,5 +170,5 @@ Apache-2.0 — see [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
-  <sub>Built by <a href="https://standardlogic.ai">Standard Logic Co.</a></sub>
+  <sub>Maintained by <a href="https://standardlogic.ai">Standard Logic Co.</a></sub>
 </p>
