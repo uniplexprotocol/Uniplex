@@ -3,12 +3,15 @@
   "name": "Uniplex",
   "theme": "mint",
   "colors": {
-    "primary": "#00D9FF"
+      "primary": "#28E5E9",
+      "light": "#28E5E9",
+      "dark": "#28E5E9"
   },
   "logo": {
     "dark": "/logo/uniplex-wordmark-dark.svg",
     "light": "/logo/uniplex-wordmark-light.svg"
   },
+  "favicon": "/logo/favicon.svg",
   "topbarLinks": [
     {
       "name": "GitHub",
