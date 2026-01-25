@@ -1,0 +1,62 @@
+---
+title: Specification Overview
+description: "Uniplex protocol specification"
+---
+
+# Uniplex Specification
+
+**The trust layer for AI agents.**
+
+Uniplex is an open protocol that provides verifiable identity and scoped authorization for AI agents. Whether you're building MCP servers, agent frameworks, or internal tools, Uniplex provides a standardized way to verify what an agent is and what it's allowed to do.
+
+## Version
+
+**Specification Version:** 2026-01-24
+
+**Status:** Initial Release
+
+## Terminology
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14](https://datatracker.ietf.org/doc/html/bcp14) [[RFC2119](https://datatracker.ietf.org/doc/html/rfc2119)] [[RFC8174](https://datatracker.ietf.org/doc/html/rfc8174)] when, and only when, they appear in all capitals.
+
+## Overview
+
+Uniplex enables any tool or service to:
+
+- Verify agent identity via signed credentials (Passports)
+- Make local allow/deny decisions (Gates)
+- Prove authorization for audit trails (Attestations)
+
+## Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Passport** | Signed credential carrying identity + scoped permissions |
+| **Gate** | Verification logic at tool boundaries |
+| **Attestation** | Signed proof of authorization decision |
+| **Trust Profile** | Security level (L1/L2/L3) |
+
+## Protocol Components
+
+<CardGroup cols={2}>
+  <Card title="Passport Schema" icon="id-card" href="/specification/passport">
+    Identity, permissions, and proof structure
+  </Card>
+  <Card title="Gate Algorithm" icon="shield-check" href="/specification/gate">
+    Verification and decision logic
+  </Card>
+  <Card title="Attestation Format" icon="certificate" href="/specification/attestation">
+    Portable proof of authorization
+  </Card>
+  <Card title="Trust Profiles" icon="layer-group" href="/specification/profiles">
+    L1/L2/L3 requirements
+  </Card>
+</CardGroup>
+
+## Full Specification
+
+The complete specification is available in the GitHub repository:
+
+<Card title="SPECIFICATION.md" icon="github" href="https://github.com/uniplexprotocol/uniplex/blob/main/SPECIFICATION.md">
+  Full protocol specification (2026-01-24)
+</Card>
