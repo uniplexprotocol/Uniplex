@@ -2,15 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Uniplex",
   "theme": "mint",
-  "logo": {
-    "dark": "/logo/uniplex-logo-dark.svg",
-    "light": "/logo/uniplex-logo-light.svg"
-  },
-  "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#00D9FF",
-    "light": "#00D9FF",
-    "dark": "#00D9FF"
+    "primary": "#00D9FF"
   },
   "topbarLinks": [
     {
@@ -18,24 +11,18 @@
       "url": "https://github.com/uniplexprotocol/uniplex"
     }
   ],
-  "topbarCtaButton": {
-    "name": "Get Started",
-    "url": "/quickstart"
-  },
-  "navigation": [
+  "anchors": [
     {
-      "group": "Getting Started",
-      "pages": ["introduction", "quickstart"]
-    },
-    {
-      "group": "Core Concepts",
-      "pages": ["concepts/passports", "concepts/gates", "concepts/trust-profiles"]
-    },
-    {
-      "group": "Specification",
-      "pages": ["specification/overview"]
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/uniplexprotocol/uniplex"
     }
   ],
+  "navigation": {
+    "Getting Started": ["introduction", "quickstart"],
+    "Core Concepts": ["concepts/passports", "concepts/gates", "concepts/trust-profiles"],
+    "Specification": ["specification/overview"]
+  },
   "footerSocials": {
     "x": "https://x.com/uniplexprotocol",
     "github": "https://github.com/uniplexprotocol/uniplex"
