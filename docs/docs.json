@@ -5,6 +5,10 @@
   "colors": {
     "primary": "#00D9FF"
   },
+  "logo": {
+    "dark": "/logo/uniplex-wordmark-dark.svg",
+    "light": "/logo/uniplex-wordmark-light.svg"
+  },
   "topbarLinks": [
     {
       "name": "GitHub",
