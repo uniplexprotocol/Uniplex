@@ -11,17 +11,21 @@
       "url": "https://github.com/uniplexprotocol/uniplex"
     }
   ],
-  "anchors": [
-    {
-      "name": "GitHub",
-      "icon": "github",
-      "url": "https://github.com/uniplexprotocol/uniplex"
-    }
-  ],
   "navigation": {
-    "Getting Started": ["introduction", "quickstart"],
-    "Core Concepts": ["concepts/passports", "concepts/gates", "concepts/trust-profiles"],
-    "Specification": ["specification/overview"]
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": ["introduction", "quickstart"]
+      },
+      {
+        "group": "Core Concepts",
+        "pages": ["concepts/passports", "concepts/gates", "concepts/trust-profiles"]
+      },
+      {
+        "group": "Specification",
+        "pages": ["specification/overview"]
+      }
+    ]
   },
   "footerSocials": {
     "x": "https://x.com/uniplexprotocol",
