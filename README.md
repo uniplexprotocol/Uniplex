@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/uniplex-logo-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="assets/uniplex-logo-light.svg">
-    <img alt="Uniplex" src="assets/uniplex-logo-dark.svg" width="8000">
+    <img alt="Uniplex" src="assets/uniplex-logo-dark.svg" width="800">
   </picture>
 </p>
 
