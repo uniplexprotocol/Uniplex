@@ -23,8 +23,12 @@
   "navigation": {
     "groups": [
       {
+        "group": "",
+        "pages": ["introduction"]
+      },
+      {
         "group": "Getting Started",
-        "pages": ["introduction", "quickstart"]
+        "pages": ["quickstart"]
       },
       {
         "group": "Core Concepts",
