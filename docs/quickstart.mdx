@@ -1,0 +1,90 @@
+---
+title: Quickstart
+description: "Get started with Uniplex in 5 minutes"
+---
+
+# Quickstart
+
+Get up and running with Uniplex in minutes.
+
+## Installation
+
+<CodeGroup>
+```bash pip
+pip install uniplex
+```
+</CodeGroup>
+
+## Create a Self-Issued Passport (L1)
+
+<Note>
+L1/self-issued passports are intended for dev/test and low-risk reads. For production, use L2/L3 with trusted issuer policy and theft/replay protections.
+</Note>
+
+```python
+from uniplex import Passport
+
+passport = Passport.create_self_issued(
+    agent_id="my-agent",
+    permissions=[
+        {"action": "read", "resource": "file:*.txt"}
+    ],
+    ttl_hours=24
+)
+```
+
+## Verify at a Gate
+
+`Gate.check` accepts a `Passport` object or a base64-encoded passport string.
+
+```python
+from uniplex import Gate
+
+# L1 is dev/test only; use L2/L3 in production
+gate = Gate(profile="L1")
+
+decision = gate.check(
+    passport=passport,
+    action="read",
+    resource="file:config.txt"
+)
+
+if decision.allowed:
+    # Proceed with operation
+    pass
+else:
+    print(f"Denied: {decision.reason}")
+```
+
+## MCP Integration
+
+```python
+from uniplex import Gate
+
+# L2 requires a trusted issuer policy — configure your Gate with allowed issuers
+gate = Gate(profile="L2")
+
+@mcp_server.tool()
+def charge_card(card_id: str, amount: int, passport_b64: str):
+    decision = gate.check(
+        passport=passport_b64,
+        action="payments.charge",
+        resource=f"card:{card_id}"
+    )
+
+    if not decision.allowed:
+        raise PermissionError(f"Denied: {decision.reason}")
+
+    return {"status": "ok", "charged": amount}
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="lightbulb" href="/concepts/passports">
+    Learn about Passports, Gates, and Trust Profiles
+  </Card>
+  <Card title="Specification" icon="book" href="/specification/overview">
+    Read the full protocol specification
+  </Card>
+</CardGroup>
