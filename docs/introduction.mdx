@@ -3,11 +3,28 @@ title: What is Uniplex?
 description: "The trust layer for AI agents"
 ---
 
-Uniplex is an open protocol for verifiable agent identity and scoped authorization.
+**Uniplex is a passport system for AI agents.**
 
-AI agents are calling APIs and taking actions across the web — but there's no standard way to verify who they are or what they're allowed to do. Uniplex solves this by giving agents portable, signed credentials (Passports) that any tool can verify locally.
+AI agents are calling APIs, executing tools, and taking real-world actions — but there's no standard way to verify which agent is making a request or what it's actually allowed to do.
 
-Think of it as **HTTPS for agent authorization**: just as HTTPS provides a standardized way to secure web traffic, Uniplex provides a standardized way to authorize AI agents.
+Today, most agents authenticate with shared API keys or borrowed OAuth tokens. That means:
+
+- Can't tell which agent made the request.
+- Can't scope beyond "has the key."
+- Can't prove checks to auditors.
+
+**Uniplex fixes this.** It gives agents portable, signed credentials — Passports — that any tool can verify locally, in the request flow, with no shared secrets and no network round-trips in the hot path.
+
+You keep your existing identity providers. Uniplex adds the portable authorization layer they're missing.
+
+## What can Uniplex enable?
+
+- Verify an agent is allowed to execute a $50K wire transfer — not just that it can call the payments API.
+- Give an agent read-only access in production and full access everywhere else.
+- When Agent A delegates to Agent B, verify the full chain of trust and ensure permissions weren't escalated.
+- Issue credentials that expire in minutes — not API keys that live forever.
+- Revoke a compromised agent's access instantly, without rotating shared secrets.
+- Every decision produces a signed attestation — show auditors exactly what was authorized, when, and by whom.
 
 ## How It Works
 ```mermaid
@@ -16,18 +33,13 @@ sequenceDiagram
     participant A as Agent
     participant G as Gate
 
-    I->>A: Issues Passport (credentials + scoped permissions)
+    I->>A: Issues Passport (agent claims + scoped permissions)
     A->>G: Request + Passport
     G->>G: Verify signature & check policy (L1/L2/L3)
     G->>A: Allow/Deny + Attestation
 ```
 
-## What can Uniplex enable?
-
-- MCP servers can verify which agents are authorized to access sensitive tools
-- Enterprise teams can issue credentials to internal agents with scoped permissions
-- Tool providers can accept agent requests without sharing API keys
-- Audit systems can verify authorization decisions with signed attestations
+**Key insight:** Verification happens locally at the Gate — no round-trip to a central server for every tool call.
 
 ## Why Uniplex?
 
@@ -35,13 +47,13 @@ sequenceDiagram
 |---------|----------|-----------|---------|
 | **Designed For** | Systems/Services | Humans | AI Agents |
 | **Scoping** | All-or-nothing | Centralized scopes | Action + Resource + Constraints |
-| **Verification** | Server-side lookup | JWT validation or introspection | Local cryptographic check |
+| **Verification** | Server-side lookup | JWT validation or introspection | Local cryptographic + policy check |
 | **Latency** | Network round-trip | Often local (JWT); sometimes network | Designed for sub-millisecond local checks |
 | **Offline Support** | No | Possible (JWT); not inherent | First-class |
-| **Auditability** | Opaque logs | Token-based | Signed attestations |
+| **Audit Trail** | Opaque logs | Access logs | Signed Attestations (Non-repudiable) |
 
 <Note>
-OAuth can be validated locally when using JWT access tokens; Uniplex is purpose-built for agent credentials and tool-bound scoping with local-first verification.
+OAuth can be validated locally with JWT access tokens, but Uniplex is purpose-built for agent credentials with tool-bound scoping and local-first verification.
 </Note>
 
 ## Get Started
