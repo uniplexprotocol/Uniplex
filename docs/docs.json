@@ -22,12 +22,6 @@
     "name": "Get Started",
     "url": "/quickstart"
   },
-  "tabs": [
-    {
-      "name": "Specification",
-      "url": "specification"
-    }
-  ],
   "navigation": [
     {
       "group": "Getting Started",
