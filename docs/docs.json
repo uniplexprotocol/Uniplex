@@ -1,0 +1,48 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Uniplex",
+  "logo": {
+    "dark": "/logo/uniplex-logo-dark.svg",
+    "light": "/logo/uniplex-logo-light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#00D9FF",
+    "light": "#00D9FF",
+    "dark": "#00D9FF"
+  },
+  "topbarLinks": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/uniplexprotocol/uniplex"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Get Started",
+    "url": "/quickstart"
+  },
+  "tabs": [
+    {
+      "name": "Specification",
+      "url": "specification"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": ["introduction", "quickstart"]
+    },
+    {
+      "group": "Core Concepts",
+      "pages": ["concepts/passports", "concepts/gates", "concepts/trust-profiles"]
+    },
+    {
+      "group": "Specification",
+      "pages": ["specification/overview"]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/uniplexprotocol",
+    "github": "https://github.com/uniplexprotocol/uniplex"
+  }
+}
