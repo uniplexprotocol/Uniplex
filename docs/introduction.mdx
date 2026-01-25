@@ -3,33 +3,11 @@ title: What is Uniplex?
 description: "The trust layer for AI agents"
 ---
 
-# Uniplex is a Passport System for AI Agents.
+Uniplex is an open protocol for verifiable agent identity and scoped authorization.
 
-AI agents are calling APIs and taking actions across the web — but there's no standard way to verify who they are or what they're allowed to do.
+AI agents are calling APIs and taking actions across the web — but there's no standard way to verify who they are or what they're allowed to do. Uniplex solves this by giving agents portable, signed credentials (Passports) that any tool can verify locally.
 
-**Uniplex is an open protocol that solves this.** It gives agents portable, signed credentials (Passports) that any tool can verify locally — no network calls, no shared secrets, no vendor lock-in.
-
-Think of it as **HTTPS for agent authorization**: a lightweight trust layer that works with your existing infrastructure.
-
-<CardGroup cols={2}>
-  <Card title="Quickstart" icon="rocket" href="/quickstart">
-    Get up and running in 5 minutes
-  </Card>
-  <Card title="Specification" icon="book" href="/specification/overview">
-    Read the full protocol specification
-  </Card>
-</CardGroup>
-
----
-
-## Why Uniplex?
-
-- **Passports** — Agents carry signed credentials that prove what they are, who issued them, and what they're allowed to do
-- **Gates** — Any tool—MCP servers, APIs, or agent tool calls—can verify passports locally and make an allow/deny decision
-- **Pluggable** — Works alongside your existing auth (API keys, OAuth/JWT, mTLS). No rip-and-replace.
-- **Local-First** — No network calls in the hot path. No shared secrets.
-- **Security Tiers** — L1 (dev) → L2 (production) → L3 (strict)
-- **Vendor-Neutral** — Works with any agent framework, model, or tool stack
+Think of it as **HTTPS for agent authorization**: just as HTTPS provides a standardized way to secure web traffic, Uniplex provides a standardized way to authorize AI agents.
 
 ## How It Works
 ```mermaid
@@ -44,7 +22,27 @@ sequenceDiagram
     G->>A: Allow/Deny + Attestation
 ```
 
-**Key insight:** Verification happens locally at the Gate — no round-trip to a central server for every tool call.
+## What can Uniplex enable?
+
+- MCP servers can verify which agents are authorized to access sensitive tools
+- Enterprise teams can issue credentials to internal agents with scoped permissions
+- Tool providers can accept agent requests without sharing API keys
+- Audit systems can verify authorization decisions with signed attestations
+
+## Why Uniplex?
+
+| Feature | API Keys | OAuth 2.0 | Uniplex |
+|---------|----------|-----------|---------|
+| **Designed For** | Systems/Services | Humans | AI Agents |
+| **Scoping** | All-or-nothing | Centralized scopes | Action + Resource + Constraints |
+| **Verification** | Server-side lookup | JWT validation or introspection | Local cryptographic check |
+| **Latency** | Network round-trip | Often local (JWT); sometimes network | Designed for sub-millisecond local checks |
+| **Offline Support** | No | Possible (JWT); not inherent | First-class |
+| **Auditability** | Opaque logs | Token-based | Signed attestations |
+
+<Note>
+OAuth can be validated locally when using JWT access tokens; Uniplex is purpose-built for agent credentials and tool-bound scoping with local-first verification.
+</Note>
 
 ## Get Started
 
