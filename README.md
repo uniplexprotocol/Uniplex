@@ -2,30 +2,26 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/uniplex-logo-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="assets/uniplex-logo-light.svg">
-    <img alt="Uniplex" src="assets/uniplex-logo-dark.svg" width="400">
+    <img alt="Uniplex" src="assets/uniplex-logo-dark.svg" width="800">
   </picture>
 </p>
 
 <p align="center">
-  <strong>Open protocol for verifiable agent identity and scoped authorization</strong>
+  <sub>Specification 2026-01-24 — SDK in development (early alpha)</sub>
 </p>
 
 <p align="center">
-  <em>Specification 2026-01-24 — SDK in development (early alpha; breaking changes expected)</em>
-</p>
-
-<p align="center">
-  <a href="https://uniplex.io">Documentation</a> •
-  <a href="SPECIFICATION.md">Specification</a> •
-  <a href="#quickstart">Quickstart</a> •
-  <a href="https://github.com/uniplexprotocol/uniplex/discussions">Discussions</a>
+  <a href="https://uniplex.io">Documentation</a> · 
+  <a href="SPECIFICATION.md">Specification</a> · 
+  <a href="#quickstart">Quickstart</a> · 
+  <a href="https://github.com/uniplexprotocol/uniplex/discussions">Discuss</a>
 </p>
 
 ---
 
 ## What is Uniplex?
 
-> **Uniplex is a passport system for AI agents.**
+**Uniplex is a passport system for AI agents.**
 
 AI agents are calling APIs and taking actions with no standard way to verify they're authorized. Uniplex is an open protocol that adds a lightweight trust layer for the agentic web:
 
