@@ -54,7 +54,9 @@ Every Gate MUST implement these checks in order:
 | `POP_INVALID` | PoP verification failed |
 
 ## SDK Usage
-```python
+
+<CodeGroup>
+```python Python
 from uniplex import Gate, GateRequest, TrustProfile
 
 gate = Gate(profile=TrustProfile.L1)
@@ -69,4 +71,54 @@ decision = gate.authorize(request)
 
 if decision.allowed:
     # proceed
+    pass
+else:
+    print(f"Denied: {decision.reason_code}")
 ```
+```typescript TypeScript
+import { Gate, GateRequest, TrustProfile } from 'uniplex';
+
+const gate = new Gate({ profile: TrustProfile.L1 });
+
+const request = GateRequest.create(passport, 'mcp:search', {
+  target: 'mcp://tools.example.com'
+});
+
+const decision = await gate.authorize(request);
+
+if (decision.allowed) {
+  // proceed
+} else {
+  console.log(`Denied: ${decision.reasonCode}`);
+}
+```
+</CodeGroup>
+
+## Simple Authorization
+
+For quick checks without creating a request object:
+
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
+gate = Gate(profile=TrustProfile.L1)
+
+decision = gate.authorize_simple(
+    passport=passport,
+    action="mcp:search",
+    target="mcp://tools.example.com"
+)
+```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({ profile: TrustProfile.L1 });
+
+const decision = await gate.authorizeSimple(
+  passport,
+  'mcp:search',
+  'mcp://tools.example.com'
+);
+```
+</CodeGroup>
