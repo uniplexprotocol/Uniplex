@@ -32,7 +32,13 @@
       },
       {
         "group": "Specification",
-        "pages": ["specification/overview"]
+        "pages": [
+          "specification/overview",
+          "specification/passport",
+          "specification/gate",
+          "specification/attestation",
+          "specification/profiles"
+        ]
       }
     ]
   },
