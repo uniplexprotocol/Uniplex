@@ -17,9 +17,18 @@ Uniplex defines three trust profiles that let you scale security based on your n
 
 The simplest profile for getting started.
 
-```python
-gate = Gate(profile="L1")
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
+gate = Gate(profile=TrustProfile.L1)
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({ profile: TrustProfile.L1 });
+```
+</CodeGroup>
 
 **Checks performed:**
 - ✓ Signature verification
@@ -40,12 +49,29 @@ L1 allows self-issued passports if explicitly enabled. Do not use L1 in producti
 
 The production-ready profile with anti-theft protections.
 
-```python
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
 gate = Gate(
-    profile="L2",
-    allowed_issuers=["issuer:acme"]
+    profile=TrustProfile.L2,
+    policy={
+        "allowed_issuers": ["issuer:acme"]
+    },
+    require_pop=True
 )
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({
+  profile: TrustProfile.L2,
+  policy: {
+    allowedIssuers: ['issuer:acme']
+  }
+});
+```
+</CodeGroup>
 
 **Additional checks:**
 - ✓ Nonce/replay protection
@@ -62,13 +88,29 @@ gate = Gate(
 
 The highest assurance profile for sensitive environments.
 
-```python
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
 gate = Gate(
-    profile="L3",
-    allowed_issuers=["issuer:acme"],
-    revocation_policy="fail_closed"
+    profile=TrustProfile.L3,
+    policy={
+        "allowed_issuers": ["issuer:acme"]
+    },
+    require_pop=True
 )
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({
+  profile: TrustProfile.L3,
+  policy: {
+    allowedIssuers: ['issuer:acme']
+  }
+});
+```
+</CodeGroup>
 
 **Additional checks:**
 - ✓ Proof of Possession (PoP)
@@ -82,7 +124,6 @@ gate = Gate(
 - Healthcare/compliance workloads
 
 ## Choosing a Profile
-
 ```mermaid
 flowchart TD
     A[Start] --> B{Production?}
@@ -99,3 +140,30 @@ Start with L1 in development, then move up:
 1. **L1** — Get your integration working
 2. **L2** — Add trusted issuers and anti-theft protections
 3. **L3** — Add PoP and strict revocation for sensitive operations
+
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
+# Start here
+gate = Gate(profile=TrustProfile.L1)
+
+# Move to production
+gate = Gate(profile=TrustProfile.L2)
+
+# High assurance
+gate = Gate(profile=TrustProfile.L3)
+```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+// Start here
+const gate = new Gate({ profile: TrustProfile.L1 });
+
+// Move to production
+const gate = new Gate({ profile: TrustProfile.L2 });
+
+// High assurance
+const gate = new Gate({ profile: TrustProfile.L3 });
+```
+</CodeGroup>
