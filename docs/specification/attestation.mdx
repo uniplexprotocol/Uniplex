@@ -47,7 +47,9 @@ An Attestation is a signed record of an authorization decision. It provides non-
 - **Billing**: Prove service was authorized before charging
 
 ## SDK Usage
-```python
+
+<CodeGroup>
+```python Python
 from uniplex import Attestation
 
 attestation = Attestation.from_decision(request, decision, gate_id="my-gate")
@@ -58,3 +60,44 @@ assert attestation.verify_signature() == True
 # Export for storage
 json_str = attestation.to_json()
 ```
+```typescript TypeScript
+import { Attestation } from 'uniplex';
+
+const attestation = await Attestation.fromDecision(request, decision, {
+  gateId: 'my-gate'
+});
+
+// Verify later
+await attestation.verifySignature();  // true
+
+// Export for storage
+const json = attestation.toJson();
+```
+</CodeGroup>
+
+## Creating from Gate Decision
+
+<CodeGroup>
+```python Python
+from uniplex import Gate, GateRequest, Attestation, TrustProfile
+
+gate = Gate(profile=TrustProfile.L1)
+request = GateRequest.create(passport, action="mcp:search")
+decision = gate.authorize(request)
+
+# Create attestation from the decision
+attestation = Attestation.from_decision(request, decision, gate_id="prod-gate-1")
+```
+```typescript TypeScript
+import { Gate, GateRequest, Attestation, TrustProfile } from 'uniplex';
+
+const gate = new Gate({ profile: TrustProfile.L1 });
+const request = GateRequest.create(passport, 'mcp:search');
+const decision = await gate.authorize(request);
+
+// Create attestation from the decision
+const attestation = await Attestation.fromDecision(request, decision, {
+  gateId: 'prod-gate-1'
+});
+```
+</CodeGroup>
