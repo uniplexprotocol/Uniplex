@@ -1,0 +1,73 @@
+---
+title: Trust Profiles
+description: "L1/L2/L3 security requirements"
+---
+
+Trust Profiles define the security level for a Gate. Higher levels add more verification requirements.
+
+## Overview
+
+| Profile | Use Case | Self-Issued | PoP Required | Registry Required |
+|---------|----------|-------------|--------------|-------------------|
+| **L1** | Development, internal tools | ✓ | ✗ | ✗ |
+| **L2** | Production | ✗ | ✓ | ✓ |
+| **L3** | High-assurance, financial | ✗ | ✓ | ✓ (certified only) |
+
+## L1 — Baseline
+
+**Use for:** Development, testing, internal tools
+
+**Requirements:**
+- Verify passport signature
+- Check expiration
+- Check permissions
+- Self-issued passports allowed
+```python
+from uniplex import Gate, TrustProfile
+
+gate = Gate(profile=TrustProfile.L1)
+```
+
+## L2 — Standard
+
+**Use for:** Production deployments
+
+**Requirements:**
+- All L1 checks
+- Issuer must be in registry (verified tier)
+- Proof of Possession required
+- Revocation checking
+```python
+gate = Gate(
+    profile=TrustProfile.L2,
+    registry=my_registry,
+    require_pop=True
+)
+```
+
+## L3 — Strict
+
+**Use for:** Financial transactions, high-assurance environments
+
+**Requirements:**
+- All L2 checks
+- Issuer must be certified tier
+- Full audit trail required
+- No self-issued, no enterprise-only issuers
+```python
+gate = Gate(
+    profile=TrustProfile.L3,
+    registry=certified_registry,
+    require_pop=True
+)
+```
+
+## Choosing a Profile
+
+| Question | L1 | L2 | L3 |
+|----------|----|----|-----|
+| Internal tool only? | ✓ | | |
+| Production with external agents? | | ✓ | |
+| Financial transactions? | | | ✓ |
+| Regulatory compliance required? | | | ✓ |
+| Need audit trail? | | ✓ | ✓ |
