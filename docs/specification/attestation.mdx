@@ -1,0 +1,60 @@
+---
+title: Attestation Format
+description: "Portable proof of authorization"
+---
+
+An Attestation is a signed record of an authorization decision. It provides non-repudiable proof that a check occurred.
+
+## Schema
+```json
+{
+  "uni_version": "2026-01-25",
+  "attestation_id": "att_abc123",
+  "request_id": "req_abc123",
+  "passport_id": "uni_abc123",
+  "agent_id": "agent:my-agent",
+  "action": "mcp:search",
+  "target": "mcp://tools.example.com",
+  "decision": "allow",
+  "reason_code": null,
+  "created_at": "2026-01-25T12:00:01Z",
+  "gate_id": "gate:prod-1",
+  "public_key": "base64...",
+  "signature": "base64..."
+}
+```
+
+## Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `attestation_id` | string | ✓ | Unique identifier |
+| `request_id` | string | ✓ | Original request ID |
+| `passport_id` | string | ✓ | Passport that was checked |
+| `agent_id` | string | ✓ | Agent that made the request |
+| `action` | string | ✓ | Action that was authorized |
+| `decision` | string | ✓ | "allow" or "deny" |
+| `reason_code` | string | | Denial reason (if denied) |
+| `created_at` | string | ✓ | ISO 8601 timestamp |
+| `gate_id` | string | | Which gate made the decision |
+| `signature` | string | ✓ | Signature over canonical JSON |
+
+## Use Cases
+
+- **Audit trails**: Prove exactly what was authorized, when, by whom
+- **Compliance**: Show auditors signed evidence of access control
+- **Debugging**: Trace why an action was allowed or denied
+- **Billing**: Prove service was authorized before charging
+
+## SDK Usage
+```python
+from uniplex import Attestation
+
+attestation = Attestation.from_decision(request, decision, gate_id="my-gate")
+
+# Verify later
+assert attestation.verify_signature() == True
+
+# Export for storage
+json_str = attestation.to_json()
+```
