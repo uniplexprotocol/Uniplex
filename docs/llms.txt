@@ -1,0 +1,36 @@
+# Uniplex
+
+> The trust layer for AI agents
+
+Uniplex is an open protocol that provides verifiable identity and scoped authorization for AI agents.
+
+## What it does
+
+- Passports: Signed credentials that prove what an agent is and what it's allowed to do
+- Gates: Local verification at tool boundaries (no network round-trip)
+- Attestations: Signed proof of authorization decisions for audit trails
+
+## Install
+
+pip install uniplex
+
+## Quick example
+
+from uniplex import Agent
+
+agent = Agent.create("my-agent", permissions="mcp:*")
+decision = agent.authorize("mcp:search")
+
+## Links
+
+- Documentation: https://uniplex.io
+- GitHub: https://github.com/uniplexprotocol/uniplex
+- PyPI: https://pypi.org/project/uniplex/
+- Specification: https://github.com/uniplexprotocol/uniplex/blob/main/SPECIFICATION.md
+
+## Key concepts
+
+- Works with MCP (Model Context Protocol)
+- L1/L2/L3 trust profiles
+- Ed25519 signatures
+- No central server required for verification
