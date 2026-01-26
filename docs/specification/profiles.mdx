@@ -22,11 +22,19 @@ Trust Profiles define the security level for a Gate. Higher levels add more veri
 - Check expiration
 - Check permissions
 - Self-issued passports allowed
-```python
+
+<CodeGroup>
+```python Python
 from uniplex import Gate, TrustProfile
 
 gate = Gate(profile=TrustProfile.L1)
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({ profile: TrustProfile.L1 });
+```
+</CodeGroup>
 
 ## L2 — Standard
 
@@ -37,13 +45,25 @@ gate = Gate(profile=TrustProfile.L1)
 - Issuer must be in registry (verified tier)
 - Proof of Possession required
 - Revocation checking
-```python
+
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
 gate = Gate(
     profile=TrustProfile.L2,
     registry=my_registry,
     require_pop=True
 )
 ```
+```typescript TypeScript
+import { Gate, TrustProfile, MemoryRegistry } from 'uniplex';
+
+const gate = new Gate({
+  profile: TrustProfile.L2
+});
+```
+</CodeGroup>
 
 ## L3 — Strict
 
@@ -54,13 +74,25 @@ gate = Gate(
 - Issuer must be certified tier
 - Full audit trail required
 - No self-issued, no enterprise-only issuers
-```python
+
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
 gate = Gate(
     profile=TrustProfile.L3,
     registry=certified_registry,
     require_pop=True
 )
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({
+  profile: TrustProfile.L3
+});
+```
+</CodeGroup>
 
 ## Choosing a Profile
 
