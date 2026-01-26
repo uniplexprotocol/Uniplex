@@ -15,32 +15,30 @@ A Passport contains:
 - **Proof** — Cryptographic signature proving authenticity
 
 ## Example Passport
-
 ```json
 {
-  "uni_version": "2026-01-24",
+  "uni_version": "2026-01-25",
+  "passport_id": "uni_abc123",
   "identity": {
-    "id": "agent:my-agent",
+    "agent_id": "agent:my-agent",
     "type": "assistant"
   },
   "permissions": [
     {
-      "action": "read",
-      "resource": "file:*.txt"
+      "action": "mcp:*",
+      "target": null
     }
   ],
   "provenance": {
     "issuer": {
       "id": "issuer:acme",
-      "tier": "verified"
+      "type": "verified"
     },
-    "issued_at": "2026-01-24T00:00:00Z",
-    "expires_at": "2026-01-25T00:00:00Z"
+    "issued_at": "2026-01-25T00:00:00Z",
+    "expires_at": "2026-01-26T00:00:00Z"
   },
-  "proof": {
-    "type": "Ed25519",
-    "signature": "..."
-  }
+  "public_key": "base64...",
+  "signature": "base64..."
 }
 ```
 
@@ -55,21 +53,95 @@ A Passport contains:
 
 ## Creating Passports
 
-```python
+<CodeGroup>
+```python Python
 from uniplex import Passport
 
 # Self-issued (L1 only)
 passport = Passport.create_self_issued(
     agent_id="my-agent",
-    permissions=[{"action": "read", "resource": "file:*.txt"}],
+    permissions="mcp:*",
     ttl_hours=24
 )
 
-# With an issuer (L2/L3)
-passport = Passport.create(
-    agent_id="my-agent",
-    permissions=[{"action": "read", "resource": "file:*.txt"}],
-    issuer=issuer,  # Your issuer instance
-    ttl_hours=24
-)
+# Verify signature
+assert passport.verify_signature()
+
+# Check permissions
+passport.has_permission("mcp:search")  # True
 ```
+```typescript TypeScript
+import { Passport } from 'uniplex';
+
+// Self-issued (L1 only)
+const passport = await Passport.createSelfIssued('my-agent', {
+  permissions: 'mcp:*',
+  duration: 24 * 60 * 60 * 1000  // 24 hours in ms
+});
+
+// Verify signature
+await passport.verifySignature();  // true
+
+// Check permissions
+passport.hasPermission('mcp:search');  // true
+```
+</CodeGroup>
+
+## Using the Agent Helper
+
+The `Agent` class provides a simpler API for common tasks:
+
+<CodeGroup>
+```python Python
+from uniplex import Agent
+
+agent = Agent.create("my-agent", permissions="mcp:*")
+
+# Quick permission check
+if agent.can("mcp:search"):
+    print("Allowed!")
+
+# Full authorization
+decision = agent.authorize("mcp:search")
+```
+```typescript TypeScript
+import { Agent } from 'uniplex';
+
+const agent = await Agent.create('my-agent', { permissions: 'mcp:*' });
+
+// Quick permission check
+if (agent.can('mcp:search')) {
+  console.log('Allowed!');
+}
+
+// Full authorization
+const decision = await agent.authorize('mcp:search');
+```
+</CodeGroup>
+
+## Serialization
+
+Passports can be serialized to JSON for transport:
+
+<CodeGroup>
+```python Python
+# To JSON
+json_str = passport.to_json()
+
+# From JSON
+passport = Passport.from_json(json_str)
+
+# From environment variable
+passport = Passport.from_env("UNIPLEX_PASSPORT")
+```
+```typescript TypeScript
+// To JSON
+const json = passport.toJson();
+
+// From JSON
+const passport = Passport.fromJson(json);
+
+// From environment variable
+const passport = Passport.fromEnv('UNIPLEX_PASSPORT');
+```
+</CodeGroup>
