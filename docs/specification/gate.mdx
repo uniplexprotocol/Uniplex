@@ -1,0 +1,72 @@
+---
+title: Gate Algorithm
+description: "Verification and decision logic"
+---
+
+A Gate is the verification point that checks Passports and makes allow/deny decisions.
+
+## L1 Baseline Algorithm
+
+Every Gate MUST implement these checks in order:
+```
+1. Verify passport signature         (embedded public_key)
+2. Check passport not expired        (timestamp comparison)
+3. Apply issuer policy               (allow_self_issued OR issuer in allowlist)
+4. Check permission exists           (action matches permissions[])
+5. Return allow/deny
+```
+
+## Request Format
+```json
+{
+  "uni_version": "2026-01-25",
+  "request_id": "req_abc123",
+  "passport": { "...passport object..." },
+  "action": "mcp:search",
+  "target": "mcp://tools.example.com",
+  "issued_at": "2026-01-25T12:00:00Z",
+  "parameters": { "query": "weather" }
+}
+```
+
+## Decision Format
+```json
+{
+  "uni_version": "2026-01-25",
+  "request_id": "req_abc123",
+  "decision": "allow",
+  "decision_at": "2026-01-25T12:00:01Z",
+  "passport_id": "uni_abc123",
+  "agent_id": "agent:my-agent",
+  "action": "mcp:search"
+}
+```
+
+## Denial Codes
+
+| Code | Description |
+|------|-------------|
+| `INVALID_SIGNATURE` | Passport signature verification failed |
+| `PASSPORT_EXPIRED` | Passport has expired |
+| `ISSUER_NOT_ALLOWED` | Issuer not trusted by this gate |
+| `PERMISSION_DENIED` | Action not in permissions |
+| `POP_REQUIRED` | L2+ requires Proof of Possession |
+| `POP_INVALID` | PoP verification failed |
+
+## SDK Usage
+```python
+from uniplex import Gate, GateRequest, TrustProfile
+
+gate = Gate(profile=TrustProfile.L1)
+
+request = GateRequest.create(
+    passport=passport,
+    action="mcp:search",
+    target="mcp://tools.example.com"
+)
+
+decision = gate.authorize(request)
+
+if decision.allowed:
+    # proceed
+```
