@@ -16,57 +16,105 @@ All of this happens **locally** — no network calls required.
 
 ## Basic Usage
 
-```python
-from uniplex import Gate
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
 
-gate = Gate(profile="L1")
+gate = Gate(profile=TrustProfile.L1)
 
-decision = gate.check(
+decision = gate.authorize_simple(
     passport=passport,
-    action="read",
-    resource="file:config.txt"
+    action="read"
 )
 
 if decision.allowed:
     # Proceed
     pass
 else:
-    print(f"Denied: {decision.reason}")
+    print(f"Denied: {decision.reason_code}")
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({ profile: TrustProfile.L1 });
+
+const decision = await gate.authorizeSimple(passport, 'read');
+
+if (decision.allowed) {
+  // Proceed
+} else {
+  console.log(`Denied: ${decision.reasonCode}`);
+}
+```
+</CodeGroup>
 
 ## Decision Object
 
-The `decision` returned by `gate.check()` contains:
+The decision returned by the gate contains:
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `allowed` | bool | Whether the action is permitted |
-| `reason` | string | Reason code if denied |
-| `attestation` | object | Signed proof of the decision (optional) |
+| `reasonCode` | string | Reason code if denied |
+| `passportId` | string | ID of the passport that was checked |
+| `agentId` | string | ID of the agent |
 
 ## Trust Profiles
 
 Gates operate at one of three trust levels:
 
-```python
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
 # Development/testing
-gate = Gate(profile="L1")
+gate = Gate(profile=TrustProfile.L1)
 
 # Production
-gate = Gate(profile="L2")
+gate = Gate(profile=TrustProfile.L2)
 
 # High assurance
-gate = Gate(profile="L3")
+gate = Gate(profile=TrustProfile.L3)
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+// Development/testing
+const gate = new Gate({ profile: TrustProfile.L1 });
+
+// Production
+const gate = new Gate({ profile: TrustProfile.L2 });
+
+// High assurance
+const gate = new Gate({ profile: TrustProfile.L3 });
+```
+</CodeGroup>
 
 See [Trust Profiles](/concepts/trust-profiles) for details on each level.
 
 ## Configuration
 
-```python
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
 gate = Gate(
-    profile="L2",
-    allowed_issuers=["issuer:acme", "issuer:partner"],
-    revocation_policy="fail_closed"
+    profile=TrustProfile.L2,
+    policy={
+        "allow_self_issued": False,
+        "allowed_issuers": ["issuer:acme", "issuer:partner"]
+    }
 )
 ```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({
+  profile: TrustProfile.L2,
+  policy: {
+    allowSelfIssued: false,
+    allowedIssuers: ['issuer:acme', 'issuer:partner']
+  }
+});
+```
+</CodeGroup>
