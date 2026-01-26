@@ -60,7 +60,9 @@ Permissions use pattern matching:
 ## Signature
 
 The signature is computed over the canonical JSON (sorted keys, no whitespace) of all fields except `signature`.
-```python
+
+<CodeGroup>
+```python Python
 from uniplex import Passport
 
 passport = Passport.create_self_issued(
@@ -70,3 +72,38 @@ passport = Passport.create_self_issued(
 
 assert passport.verify_signature() == True
 ```
+```typescript TypeScript
+import { Passport } from 'uniplex';
+
+const passport = await Passport.createSelfIssued('my-agent', {
+  permissions: 'mcp:*'
+});
+
+await passport.verifySignature();  // true
+```
+</CodeGroup>
+
+## Checking Permissions
+
+<CodeGroup>
+```python Python
+# Wildcard matches everything
+passport.has_permission("anything")  # True if permissions contains "*"
+
+# Prefix wildcard
+passport.has_permission("mcp:search")  # True if permissions contains "mcp:*"
+
+# Exact match
+passport.has_permission("mcp:search")  # True if permissions contains "mcp:search"
+```
+```typescript TypeScript
+// Wildcard matches everything
+passport.hasPermission('anything');  // true if permissions contains "*"
+
+// Prefix wildcard
+passport.hasPermission('mcp:search');  // true if permissions contains "mcp:*"
+
+// Exact match
+passport.hasPermission('mcp:search');  // true if permissions contains "mcp:search"
+```
+</CodeGroup>
