@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <sub>Specification 2026-01-24 — SDK in development (early alpha)</sub>
+  <sub>Specification 2026-01-25 — SDK in development (early alpha)</sub>
 </p>
 
 <p align="center">
@@ -151,7 +151,7 @@ Uniplex is framework-agnostic. It works with any tool or API that can accept a P
 
 ## Documentation
 
-- **[Specification](SPECIFICATION.md)** — Full protocol specification (2026-01-24)
+- **[Specification](SPECIFICATION.md)** — Full protocol specification (2026-01-25)
 - **[Documentation](https://uniplex.io)** — Guides, tutorials, API reference
 - **[Examples](examples/)** — Working code samples
 
