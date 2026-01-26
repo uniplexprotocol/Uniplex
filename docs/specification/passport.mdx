@@ -1,0 +1,72 @@
+---
+title: Passport Schema
+description: "Identity, permissions, and proof structure"
+---
+
+A Passport is a signed credential that an AI agent carries to prove its identity and permissions.
+
+## Schema
+```json
+{
+  "uni_version": "2026-01-25",
+  "passport_id": "uni_abc123",
+  "identity": {
+    "agent_id": "agent:my-agent"
+  },
+  "permissions": [
+    {
+      "action": "mcp:*",
+      "target": null
+    }
+  ],
+  "provenance": {
+    "issuer": {
+      "id": "issuer:acme",
+      "type": "verified"
+    },
+    "issued_at": "2026-01-25T00:00:00Z",
+    "expires_at": "2026-02-01T00:00:00Z"
+  },
+  "public_key": "base64...",
+  "signature": "base64..."
+}
+```
+
+## Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `uni_version` | string | ✓ | Protocol version (e.g., "2026-01-25") |
+| `passport_id` | string | ✓ | Unique identifier for this passport |
+| `identity.agent_id` | string | ✓ | Unique identifier for the agent |
+| `permissions` | array | ✓ | List of granted permissions |
+| `provenance.issuer.id` | string | ✓ | Who issued the passport |
+| `provenance.issuer.type` | string | ✓ | Issuer type: "self", "enterprise", "verified", "certified" |
+| `provenance.issued_at` | string | ✓ | ISO 8601 timestamp |
+| `provenance.expires_at` | string | ✓ | ISO 8601 timestamp |
+| `public_key` | string | ✓ | Base64-encoded Ed25519 public key |
+| `signature` | string | ✓ | Base64-encoded signature over canonical JSON |
+
+## Permissions
+
+Permissions use pattern matching:
+
+| Pattern | Matches |
+|---------|---------|
+| `*` | Everything |
+| `mcp:*` | All MCP actions |
+| `mcp:search` | Exact match only |
+
+## Signature
+
+The signature is computed over the canonical JSON (sorted keys, no whitespace) of all fields except `signature`.
+```python
+from uniplex import Passport
+
+passport = Passport.create_self_issued(
+    agent_id="my-agent",
+    permissions="mcp:*"
+)
+
+assert passport.verify_signature() == True
+```
