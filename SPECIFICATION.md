@@ -1,7 +1,7 @@
 # Uniplex Specification
 
 **Protocol:** Uniplex — The Trust Layer for AI Agents
-**Specification Version:** 2026-01-25
+**Specification Version:** 2026.01.25
 **Status:** Initial Release
 
 ---
