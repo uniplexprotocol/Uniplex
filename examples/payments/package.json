@@ -1,0 +1,13 @@
+{
+  "name": "uniplex-payments-example",
+  "version": "1.0.0",
+  "description": "High-stakes example: AI agents accessing a payments API with Uniplex authorization",
+  "type": "module",
+  "scripts": {
+    "server": "node server.js",
+    "client": "node client.js"
+  },
+  "dependencies": {
+    "uniplex": "^2026.1.25"
+  }
+}
