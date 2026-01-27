@@ -65,7 +65,7 @@
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 2026-01-25 | January 25, 2026 | Initial public release |
+| 2026.01.25 | January 25, 2026 | Initial public release |
 
 ---
 
@@ -120,7 +120,7 @@ For self-issued passports, you MUST include `identity.public_key` so the Gate ca
 
 ```json
 {
-  "uni_version": "2026-01-25",
+  "uni_version": "2026.01.25",
   "passport_id": "pass_001",
   "identity": {
     "agent_id": "my-agent",
@@ -192,7 +192,7 @@ uniplex gate --profile L1 --port 8080
 curl -X POST http://localhost:8080/authorize \
   -H "Content-Type: application/json" \
   -d '{
-    "uni_version": "2026-01-25",
+    "uni_version": "2026.01.25",
     "request_id": "req_test_001",
     "passport": { "...passport contents..." },
     "action": "test",
@@ -662,7 +662,7 @@ Extensions use reverse-domain namespacing:
 
 ```json
 {
-  "uni_version": "2026-01-25",
+  "uni_version": "2026.01.25",
   "passport_id": "pass_abc123",
   "extensions": {
     "org.oauth.dpop": { "jwk_thumbprint": "sha256:..." },
@@ -693,7 +693,7 @@ Extensions use reverse-domain namespacing:
 
 | Profile | Version | Status | Use Case |
 |---------|---------|--------|----------|
-| Uni-Core | 2026-01-25 | Stable | Foundation |
+| Uni-Core | 2026.01.25 | Stable | Foundation |
 | Uni-MCP | 0.2 | Stable | MCP tool authorization |
 | Uni-Tooling | 0.1 | Draft | LangChain, CrewAI, etc. |
 | Uni-Workload | 0.1 | Draft | SPIFFE integration |
@@ -718,7 +718,7 @@ A Uni-Passport is a signed credential containing:
 
 ```json
 {
-  "uni_version": "2026-01-25",
+  "uni_version": "2026.01.25",
   "passport_id": "pass_unique_id",
   
   "identity": {
@@ -824,7 +824,7 @@ constraints:
 
 ```json
 {
-  "uni_version": "2026-01-25",
+  "uni_version": "2026.01.25",
   "request_id": "req_unique_id",
   "passport": { },
   "action": "database:query",
@@ -866,7 +866,7 @@ constraints:
 
 ```json
 {
-  "uni_version": "2026-01-25",
+  "uni_version": "2026.01.25",
   "request_id": "req_unique_id",
   "decision": "allow",
   "reason_codes": ["passport_valid", "permission_granted"],
@@ -920,7 +920,7 @@ A Uni-Attestation is portable proof that a verification occurred.
 
 ```json
 {
-  "uni_version": "2026-01-25",
+  "uni_version": "2026.01.25",
   "attestation_id": "att_unique_id",
   "request_id": "req_unique_id",
   "passport_id": "pass_unique_id",
@@ -2016,7 +2016,7 @@ The following are optional interoperability patterns for specific ecosystems:
 
 ## Appendix C: Conformance Test Vectors
 
-See: `uniplex-conformance-vectors-2026-01-25.json` (published alongside this specification).
+See: `uniplex-conformance-vectors-2026.01.25.json` (published alongside this specification).
 
 **Canonicalization Gauntlet:** The test vectors include a dedicated "Canonicalization Gauntlet" section with 20+ edge-case URIs covering: mixed-case schemes/hosts, default ports, trailing slashes, query parameter ordering, percent-encoding edge cases, and reserved delimiter preservation. Third-party Gate implementations MUST pass all canonicalization vectors to ensure target/resource matching interoperability.
 
@@ -2140,4 +2140,4 @@ Foundation consideration at Phase 4 requires:
 ---
 
 *Uniplex Maintainers (initially Standard Logic Co.)*
-*Specification 2026-01-25*
+*Specification 2026.01.25*
