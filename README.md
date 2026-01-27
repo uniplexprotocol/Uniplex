@@ -146,7 +146,7 @@ Uniplex is framework-agnostic. It works with any tool or API that can accept a P
 | Profile | When to Use | Requirements |
 |---------|-------------|--------------|
 | **L1&nbsp;Baseline** | Dev/test, low-risk reads | Self-issued allowed only if explicitly enabled by Gate policy |
-| **L2&nbsp;Standard** | Production authorization | Trusted issuer (enterprise/internal or verified/certified) + theft/replay protections + explicit revocation policy |
+| **L2&nbsp;Standard** | Production authorization | Non-self-issued passport + theft/replay protections + explicit revocation policy |
 | **L3&nbsp;Strict** | High assurance / multi-tenant | All L2 requirements + strict trust resolution (no implicit trust) + hardened theft protection |
 
 ## Documentation
