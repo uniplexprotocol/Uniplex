@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "uniplex"
-version = "2026.01.25"
+version = "1.0.1"
 description = "Python SDK for the Uniplex protocol - AI agent trust infrastructure"
 readme = "README.md"
 license = "Apache-2.0"
