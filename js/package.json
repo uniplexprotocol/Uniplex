@@ -1,6 +1,6 @@
 {
   "name": "uniplex",
-  "version": "2026.1.25",
+  "version": "1.0.1",
   "description": "The trust layer for AI agents",
   "type": "module",
   "main": "dist/index.js",
