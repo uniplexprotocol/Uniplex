@@ -24,7 +24,7 @@
     "groups": [
       {
         "group": "Getting Started",
-        "pages": ["introduction", "quickstart"]
+        "pages": ["introduction", "quickstart", "examples"]
       },
       {
         "group": "Core Concepts",
