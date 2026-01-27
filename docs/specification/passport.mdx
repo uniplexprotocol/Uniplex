@@ -8,7 +8,7 @@ A Passport is a signed credential that an AI agent carries to prove its identity
 ## Schema
 ```json
 {
-  "uni_version": "2026-01-25",
+  "uni_version": "2026.01.25",
   "passport_id": "uni_abc123",
   "identity": {
     "agent_id": "agent:my-agent"
@@ -36,12 +36,12 @@ A Passport is a signed credential that an AI agent carries to prove its identity
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `uni_version` | string | ✓ | Protocol version (e.g., "2026-01-25") |
+| `uni_version` | string | ✓ | Protocol version (e.g., "2026.01.25") |
 | `passport_id` | string | ✓ | Unique identifier for this passport |
 | `identity.agent_id` | string | ✓ | Unique identifier for the agent |
 | `permissions` | array | ✓ | List of granted permissions |
 | `provenance.issuer.id` | string | ✓ | Who issued the passport |
-| `provenance.issuer.type` | string | ✓ | Issuer type: "self", "enterprise", "verified", "certified" |
+| `provenance.issuer.type` | string | ✓ | Issuer type: "self", "internal", "verified", "certified" |
 | `provenance.issued_at` | string | ✓ | ISO 8601 timestamp |
 | `provenance.expires_at` | string | ✓ | ISO 8601 timestamp |
 | `public_key` | string | ✓ | Base64-encoded Ed25519 public key |
