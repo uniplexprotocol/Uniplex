@@ -9,19 +9,19 @@ Real-world examples showing Uniplex in action.
 
 **The high-stakes demo.** AI agents accessing a banking API with:
 
-- Amount limits ($100 vs $10,000 transfer caps)
+- Amount limits (agents have transfer caps)
 - Account isolation (agents can only access their owner's accounts)
 - Permission scoping (read-only vs transfer)
 - Audit trail with signed attestations
 
 | What's Blocked | Why |
 |----------------|-----|
-| $500 transfer with $100 limit | Exceeds permission |
+| Agent tries \$500 transfer with \$100 limit | Exceeds permission |
 | Alice's agent accessing Bob's account | Wrong owner |
-| Read-only agent transferring $1 | No transfer permission |
-| $50k transfer with $10k limit | Exceeds permission |
+| Read-only agent transferring \$1 | No transfer permission |
+| Agent tries \$50k transfer with \$10k limit | Exceeds permission |
 
-**Total prevented: $50,551 in unauthorized transfers**
+**Total prevented: \$50,551 in unauthorized transfers**
 
 <Card title="View on GitHub" icon="github" href="https://github.com/uniplexprotocol/Uniplex/tree/main/examples/payments">
   Server, client, and full README
@@ -43,6 +43,71 @@ npm run server
 ```bash
 npm run client
 ```
+
+### How It Works
+
+**Create an agent with transfer limits:**
+
+<CodeGroup>
+```python Python
+from uniplex import Agent
+
+# Agent can only transfer up to $100
+agent = Agent.create('alice-assistant', 
+    permissions=[
+        'payments:read_balance',
+        'payments:transfer:100'
+    ]
+)
+```
+```typescript TypeScript
+import { Agent } from 'uniplex';
+
+// Agent can only transfer up to $100
+const agent = await Agent.create('alice-assistant', {
+  permissions: [
+    'payments:read_balance',
+    'payments:transfer:100'
+  ]
+});
+```
+</CodeGroup>
+
+**Server checks permissions before executing:**
+
+<CodeGroup>
+```python Python
+from uniplex import Gate, TrustProfile
+
+gate = Gate(profile=TrustProfile.L1)
+
+def transfer(passport, amount):
+    decision = gate.authorize_simple(passport, f'payments:transfer:{amount}')
+    
+    if not decision.allowed:
+        raise PermissionError(f"Denied: {decision.reason_code}")
+    
+    # Safe to execute transfer
+```
+```typescript TypeScript
+import { Gate, TrustProfile } from 'uniplex';
+
+const gate = new Gate({ profile: TrustProfile.L1 });
+
+async function transfer(passport, amount) {
+  const decision = await gate.authorizeSimple(
+    passport, 
+    `payments:transfer:${amount}`
+  );
+  
+  if (!decision.allowed) {
+    throw new Error(`Denied: ${decision.reasonCode}`);
+  }
+  
+  // Safe to execute transfer
+}
+```
+</CodeGroup>
 
 ### Sample Output
 ```
