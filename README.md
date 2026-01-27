@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <sub>Specification 2026.01.25 — SDK in development (early alpha)</sub>
+  <sub>Specification 2026.01.25 — SDKs available (Python, TypeScript)</sub>
 </p>
 
 <p align="center">
