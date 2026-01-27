@@ -429,13 +429,13 @@ Resource: "table::users::"                  → "table:users"
 | Tier | Name | Who | Example | Default Gate Behavior |
 |------|------|-----|---------|----------------------|
 | `self` | Self-Issued | Agent or operator | Dev laptop self-signs | **DENY** unless `allow_self_issued: true` |
-| `enterprise` | Enterprise | Organization's internal CA | Acme Corp issues for Acme agents | Allow if org is in trust policy |
+| `internal` | Internal | Organization's internal CA | Acme Corp issues for Acme agents | Allow if org is in trust policy |
 | `verified` | Verified | Vetted by a registry | Public registry confirmed identity | Allow with standard limits |
 | `certified` | Certified | Audited + contractual SLA | Third-party audit + SLA | Allow with elevated limits |
 
 **Visual progression:**
 ```
-Self            Enterprise         Verified           Certified
+Self            Internal           Verified           Certified
 ────────────────────────────────────────────────────────────────►
 Dev laptop  →   Internal CA    →   Registry check  →  Third-party audit
 No trust        Org trust          Public trust       Audited trust
@@ -764,7 +764,7 @@ A Uni-Passport is a signed credential containing:
     "issuer": {
       "id": "issuer:acme",
       "name": "Acme Corp",
-      "tier": "enterprise"
+      "tier": "internal"
     },
     "issued_at": "2026-01-23T00:00:00Z",
     "expires_at": "2026-01-30T00:00:00Z",
@@ -1048,7 +1048,7 @@ OAuth/OIDC integration for enterprise environments.
 |--------|----------|------|
 | Self-issuance | Development, testing | `self` |
 | CLI tool | Quick start | `self` |
-| Organization issuer | Internal agents | `enterprise` |
+| Organization issuer | Internal agents | `internal` |
 | Registry issuer | Cross-org trust | `verified`/`certified` |
 
 ### 15.2 Self-Issuance (Development)
@@ -1066,7 +1066,7 @@ uniplex init --self-signed \
 | Tier | Requirements |
 |------|--------------|
 | `self` | None (CLI generates) |
-| `enterprise` | Organization admin approval |
+| `internal` | Organization admin approval |
 | `verified` | Registry application + verification |
 | `certified` | Audit + contractual agreement |
 
@@ -1133,7 +1133,7 @@ A Local Trust Store is a first-class deployment pattern for:
     {
       "id": "issuer:acme",
       "name": "Acme Corp",
-      "tier": "enterprise",
+      "tier": "internal",
       "status": "active",
       "public_keys": [...]
     }
@@ -1157,7 +1157,7 @@ A Local Trust Store is a first-class deployment pattern for:
 | Mode | Profile | Issuer | Trust Resolution | Use Case |
 |------|---------|--------|------------------|----------|
 | **Solo Dev** | L1 Baseline | Self-issued | None | Developer laptop, testing |
-| **Enterprise Internal** | L2/L3 | Enterprise | Local Trust Store / Internal PKI | Internal agents, no external deps |
+| **Organization Internal** | L2/L3 | Internal | Local Trust Store / Internal PKI | Internal agents, no external deps |
 | **Cross-Org / Marketplace** | L3 Strict | Verified/Certified | Federated (multiple registries) | Partner integrations, public agents |
 
 ### 18.2 Solo Dev Mode
@@ -1181,7 +1181,7 @@ trust_policy:
   allow_self_issued: true
 ```
 
-### 18.3 Enterprise Internal Mode
+### 18.3 Organization Internal Mode
 
 **Production-ready without external dependencies.**
 
