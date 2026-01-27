@@ -20,7 +20,7 @@ export const PassportIdentitySchema = z.object({
 
 export const PassportIssuerSchema = z.object({
   id: z.string(),
-  type: z.enum(['self', 'enterprise', 'verified', 'certified']),
+  type: z.enum(['self', 'internal', 'verified', 'certified']),
 });
 
 export const PassportPermissionSchema = z.object({

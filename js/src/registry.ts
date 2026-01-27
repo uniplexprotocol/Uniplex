@@ -13,7 +13,7 @@
 
 export enum TrustTier {
   SELF = 'self',
-  ENTERPRISE = 'enterprise',
+  INTERNAL = 'internal',
   VERIFIED = 'verified',
   CERTIFIED = 'certified',
 }
@@ -98,7 +98,7 @@ export class MemoryRegistry implements TrustRegistry {
 
     const tierOrder: Record<TrustTier, number> = {
       [TrustTier.SELF]: 0,
-      [TrustTier.ENTERPRISE]: 1,
+      [TrustTier.INTERNAL]: 1,
       [TrustTier.VERIFIED]: 2,
       [TrustTier.CERTIFIED]: 3,
     };
