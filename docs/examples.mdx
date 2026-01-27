@@ -1,0 +1,70 @@
+---
+title: Examples
+description: "Working demos you can run in minutes"
+---
+
+Real-world examples showing Uniplex in action.
+
+## Payments API
+
+**The high-stakes demo.** AI agents accessing a banking API with:
+
+- Amount limits ($100 vs $10,000 transfer caps)
+- Account isolation (agents can only access their owner's accounts)
+- Permission scoping (read-only vs transfer)
+- Audit trail with signed attestations
+
+| What's Blocked | Why |
+|----------------|-----|
+| $500 transfer with $100 limit | Exceeds permission |
+| Alice's agent accessing Bob's account | Wrong owner |
+| Read-only agent transferring $1 | No transfer permission |
+| $50k transfer with $10k limit | Exceeds permission |
+
+**Total prevented: $50,551 in unauthorized transfers**
+
+<Card title="View on GitHub" icon="github" href="https://github.com/uniplexprotocol/Uniplex/tree/main/examples/payments">
+  Server, client, and full README
+</Card>
+
+### Quick Start
+```bash
+git clone https://github.com/uniplexprotocol/Uniplex.git
+cd Uniplex/examples/payments
+npm install
+```
+
+**Terminal 1:**
+```bash
+npm run server
+```
+
+**Terminal 2:**
+```bash
+npm run client
+```
+
+### Sample Output
+```
+→ Checking Alice's balance...
+  ✅ Balance: $5,000.00
+  📜 Attestation: att_00170b44ed4c
+
+→ Transferring $50 to Bob...
+  ✅ Transfer complete! New balance: $4,950.00
+  📜 Attestation: att_e88ae479d429
+
+→ Attempting $500 transfer (SHOULD FAIL)...
+  🚫 DENIED: Transfer amount $500 exceeds your limit of $100
+     Your limit: $100, Requested: $500
+```
+
+## More Examples Coming
+
+- **MCP Weather Server** — Basic MCP integration
+- **Healthcare Records** — Read vs write permissions
+- **Trading Agent** — Position size limits
+
+<Card title="Request an Example" icon="message" href="https://github.com/uniplexprotocol/Uniplex/discussions">
+  Tell us what you'd like to see
+</Card>
