@@ -27,7 +27,7 @@ class PassportIdentity(BaseModel):
 class PassportIssuer(BaseModel):
     """Issuer information."""
     id: str
-    type: str = "self"  # "self", "enterprise", "registry"
+    type: str = "self"  # "self", "internal", "verified", "certified"
 
 
 class PassportProvenance(BaseModel):

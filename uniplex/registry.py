@@ -23,7 +23,7 @@ from pydantic import BaseModel, Field
 class TrustTier(str, Enum):
     """Trust tier levels for issuers."""
     SELF = "self"           # Self-issued, no verification
-    ENTERPRISE = "enterprise"  # Organization-verified
+    INTERNAL = "internal"  # Organization-verified
     VERIFIED = "verified"    # Registry-verified
     CERTIFIED = "certified"  # Audit + contractual agreement
 
@@ -115,7 +115,7 @@ class MemoryRegistry(TrustRegistry):
         # Trust tier ordering
         tier_order = {
             TrustTier.SELF: 0,
-            TrustTier.ENTERPRISE: 1,
+            TrustTier.INTERNAL: 1,
             TrustTier.VERIFIED: 2,
             TrustTier.CERTIFIED: 3,
         }
@@ -188,7 +188,7 @@ class LocalRegistry(TrustRegistry):
         
         tier_order = {
             TrustTier.SELF: 0,
-            TrustTier.ENTERPRISE: 1,
+            TrustTier.INTERNAL: 1,
             TrustTier.VERIFIED: 2,
             TrustTier.CERTIFIED: 3,
         }
