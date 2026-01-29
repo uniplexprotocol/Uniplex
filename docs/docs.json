@@ -4,7 +4,7 @@
   "theme": "mint",
   "colors": {
     "primary": "#FF9700",
-    "light": "#00D9FF",
+    "light": "#FF9700",
     "dark": "#FF9700"
   },
   "logo": {
