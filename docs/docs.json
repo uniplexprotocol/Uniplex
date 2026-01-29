@@ -1,9 +1,9 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Uniplex",
-  "theme": "aspen",
+  "theme": "mint",
   "colors": {
-    "primary": "#00D9FF",
+    "primary": "#FF9700",
     "light": "#00D9FF",
     "dark": "#00D9FF"
   },
